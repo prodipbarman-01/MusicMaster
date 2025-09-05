@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MusicMaster</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #121212;
+      color: #e0e0e0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 90%;
+      max-width: 800px;
+      background: #1f1f1f;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+    .container h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      color: #ff3a3a;
+    }
+    .form-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .form-group input {
+      flex: 1;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    .form-group button {
+      padding: 0.8rem 1.2rem;
+      background: #ff3a3a;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .form-group button:hover {
+      background: #e03131;
+    }
+    .card {
+      background: #282828;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-top: 1.5rem;
+    }
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+      color: #ff3a3a;
+    }
+    .lyrics {
+      max-height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      margin-bottom: 1rem;
+      color: #ddd;
+    }
+    .genius-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      background: #ff3a3a;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .genius-link:hover {
+      background: #e03131;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+    }
+    .message {
+      margin-top: 1rem;
+      color: #f55;
+      text-align: center;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>MusicMaster</h1>
+    <form method="POST">
+      <div class="form-group">
+        <input type="text" name="song" placeholder="Enter song name" required>
+        <input type="text" name="artist" placeholder="Artist (optional)">
+        <button type="submit">Search</button>
+      </div>
+    </form>
+
+    {% if lyrics %}
+      <div class="card">
+        <h2>Lyrics</h2>
+        <div class="lyrics">{{ lyrics }}</div>
+        {% if lyrics_url %}
+          <a href="{{ lyrics_url }}" target="_blank" class="genius-link">View Full Lyrics on Genius 🔗</a>
+        {% endif %}
+      </div>
+    {% elif not_found_msg %}
+      <div class="card">
+        <h2>Lyrics</h2>
+        <div class="lyrics">{{ not_found_msg }}</div>
+      </div>
+    {% endif %}
+
+    {% if video_url %}
+      <div class="card video-container">
+        <iframe src="{{ video_url }}"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
